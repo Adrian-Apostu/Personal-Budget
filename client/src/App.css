@@ -1,0 +1,122 @@
+/* General body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container for the main content */
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Increased max-width for more space */
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Header styles */
+h1 {
+  margin-bottom: 20px;
+}
+
+/* Styling for buttons */
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for forms and form controls */
+form {
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the form elements */
+  gap: 10px; /* Added gap for better spacing */
+}
+
+input[type="text"],
+input[type="number"],
+button[type="submit"] {
+  width: calc(100% - 22px); /* Set width to 100% for alignment and adjust for padding */
+  padding: 10px;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+/* List styles for envelopes */
+.envelope-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.envelope-list li {
+  background: white;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px; /* Added gap for better spacing */
+}
+
+/* Button styles within the envelope list */
+.envelope-list button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s;
+  margin: 0 5px;
+}
+
+.envelope-list button:hover {
+  color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .container {
+      max-width: 800px; /* Increased max-width for more space */
+  }
+}

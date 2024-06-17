@@ -24,7 +24,7 @@ function EnvelopeList({ envelopes }) {
   };
 
   return (
-    <ul>
+    <ul className="envelope-list">
       {envelopes.map(envelope => {
         const balance = typeof envelope.balance === 'number' ? envelope.balance : parseFloat(envelope.balance);
         const displayBalance = isNaN(balance) ? "Invalid balance" : balance.toFixed(2);

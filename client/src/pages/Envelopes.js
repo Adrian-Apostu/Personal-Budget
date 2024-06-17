@@ -31,7 +31,7 @@ function Envelopes() {
   const toggleDistributeForm = () => setShowDistributeForm(!showDistributeForm);
 
   return (
-    <div>
+    <div className="container">
       <h1>Envelopes</h1>
       {status === 'loading' && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}

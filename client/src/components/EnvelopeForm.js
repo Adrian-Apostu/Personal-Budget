@@ -1,4 +1,3 @@
-//frontend/src/components/EnvelopeForm.js
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEnvelope } from '../redux/envelopesSlice';
@@ -17,8 +16,20 @@ function EnvelopeForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Envelope Name" required />
-      <input type="number" value={balance} onChange={e => setBalance(e.target.value)} placeholder="Initial Balance" required />
+      <input
+        type="text"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Envelope Name"
+        required
+      />
+      <input
+        type="number"
+        value={balance}
+        onChange={e => setBalance(e.target.value)}
+        placeholder="Initial Balance"
+        required
+      />
       <button type="submit">Add Envelope</button>
     </form>
   );
