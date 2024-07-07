@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export const fetchEnvelopes = createAsyncThunk('envelopes/fetchEnvelopes', async () => {
-  const response = await fetch('/api/envelopes');
+  const response = await fetch(`${API_BASE_URL}/api/envelopes`);
   if (!response.ok) {
     throw new Error('Failed to fetch envelopes');
   }
@@ -8,7 +11,7 @@ export const fetchEnvelopes = createAsyncThunk('envelopes/fetchEnvelopes', async
 });
 
 export const addEnvelope = createAsyncThunk('envelopes/addEnvelope', async (envelope) => {
-  const response = await fetch('/api/envelopes', {
+  const response = await fetch(`${API_BASE_URL}/api/envelopes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +26,7 @@ export const addEnvelope = createAsyncThunk('envelopes/addEnvelope', async (enve
 
 // Update an envelope
 export const updateEnvelope = createAsyncThunk('envelopes/updateEnvelope', async ({ id, envelope }) => {
-  const response = await fetch(`/api/envelopes/${id}`, {
+  const response = await fetch(`${API_BASE_URL}/api/envelopes/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +41,7 @@ export const updateEnvelope = createAsyncThunk('envelopes/updateEnvelope', async
 
 // Delete an envelope
 export const deleteEnvelope = createAsyncThunk('envelopes/deleteEnvelope', async (id) => {
-  const response = await fetch(`/api/envelopes/${id}`, {
+  const response = await fetch(`${API_BASE_URL}/api/envelopes/${id}`, {
     method: 'DELETE'
   });
   if (!response.ok) {
@@ -50,7 +53,7 @@ export const deleteEnvelope = createAsyncThunk('envelopes/deleteEnvelope', async
 //transfer
 export const transferFunds = createAsyncThunk('envelopes/transferFunds', async ({ fromId, toId, amount }, { rejectWithValue }) => {
   try {
-      const response = await fetch('/api/envelopes/transfer', { 
+      const response = await fetch(`${API_BASE_URL}/api/envelopes/transfer`, { 
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -69,7 +72,7 @@ export const transferFunds = createAsyncThunk('envelopes/transferFunds', async (
 //fund distribution
 export const distributeFunds = createAsyncThunk('envelopes/distributeFunds', async ({ totalAmount, envelopeIds }, { rejectWithValue }) => {
   try {
-      const response = await fetch('/api/envelopes/fund-distribution', {
+      const response = await fetch(`${API_BASE_URL}/api/envelopes/fund-distribution`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -123,12 +126,12 @@ const envelopesSlice = createSlice({
         state.status = 'succeeded';
         
         const { fromId, toId, updatedEnvelopes } = action.payload;
-        // Update amounts for 'from' envelope
+        
         const fromIndex = state.items.findIndex(envelope => envelope.id === fromId);
         if (fromIndex !== -1) {
           state.items[fromIndex] = updatedEnvelopes.find(envelope => envelope.id === fromId);
         }
-        // Update amounts for 'to' envelope
+        
         const toIndex = state.items.findIndex(envelope => envelope.id === toId);
         if (toIndex !== -1) {
           state.items[toIndex] = updatedEnvelopes.find(envelope => envelope.id === toId);
