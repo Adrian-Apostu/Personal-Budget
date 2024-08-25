@@ -124,18 +124,21 @@ const envelopesSlice = createSlice({
       })
       .addCase(transferFunds.fulfilled, (state, action) => {
         state.status = 'succeeded';
-  
+        
         const { fromId, toId, updatedEnvelopes } = action.payload;
-  
+    
+        console.log('Transfer succeeded:', action.payload);
+        
         const updatedItems = state.items.map(envelope => {
-          if (envelope.id === fromId || envelope.id === toId) {
-            return updatedEnvelopes.find(updatedEnvelope => updatedEnvelope.id === envelope.id);
-          }
-          return envelope;
+            if (envelope.id === fromId || envelope.id === toId) {
+                return updatedEnvelopes.find(updatedEnvelope => updatedEnvelope.id === envelope.id);
+            }
+            return envelope;
         });
-  
+    
         state.items = updatedItems;
-      });
+        console.log('Updated envelopes in state:', state.items);
+    });    
   }
 });
 

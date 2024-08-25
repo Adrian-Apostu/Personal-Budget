@@ -23,6 +23,7 @@ function Envelopes() {
   // Trigger re-renders when fund distribution or transfer status changes
   useEffect(() => {
     if (fundDistributionStatus === 'succeeded' || transferStatus === 'succeeded') {
+      console.log('Dispatching fetchEnvelopes...');
       dispatch(fetchEnvelopes());
     }
   }, [fundDistributionStatus, transferStatus, dispatch]);
