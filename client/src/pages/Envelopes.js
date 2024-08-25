@@ -22,11 +22,16 @@ function Envelopes() {
 
   // Trigger re-renders when fund distribution or transfer status changes
   useEffect(() => {
+    console.log('fundDistributionStatus:', fundDistributionStatus);
+    console.log('transferStatus:', transferStatus);
+    
     if (fundDistributionStatus === 'succeeded' || transferStatus === 'succeeded') {
-      console.log('Dispatching fetchEnvelopes...');
-      dispatch(fetchEnvelopes());
+        console.log('Dispatching fetchEnvelopes...');
+        dispatch(fetchEnvelopes());
+    } else {
+        console.log('Conditions not met for fetching envelopes');
     }
-  }, [fundDistributionStatus, transferStatus, dispatch]);
+}, [fundDistributionStatus, transferStatus, dispatch]);
 
   const toggleTransferForm = () => setShowTransferForm(!showTransferForm);
   const toggleDistributeForm = () => setShowDistributeForm(!showDistributeForm);
