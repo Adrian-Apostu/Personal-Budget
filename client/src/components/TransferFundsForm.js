@@ -10,7 +10,16 @@ function TransferFundsForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(transferFunds({ fromId, toId, amount: parseFloat(amount) }));
+        dispatch(transferFunds({ fromId, toId, amount: parseFloat(amount) }))
+            .unwrap()
+            .then(() => {
+                setFromId('');
+                setToId('');
+                setAmount('');
+            })
+            .catch((error) => {
+                console.error('Transfer failed:', error);
+            });
     };
 
     return (
