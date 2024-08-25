@@ -124,22 +124,18 @@ const envelopesSlice = createSlice({
       })
       .addCase(transferFunds.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        
+  
         const { fromId, toId, updatedEnvelopes } = action.payload;
-        
-        const fromIndex = state.items.findIndex(envelope => envelope.id === fromId);
-        if (fromIndex !== -1) {
-          state.items[fromIndex] = updatedEnvelopes.find(envelope => envelope.id === fromId);
-        }
-        
-        const toIndex = state.items.findIndex(envelope => envelope.id === toId);
-        if (toIndex !== -1) {
-          state.items[toIndex] = updatedEnvelopes.find(envelope => envelope.id === toId);
-        }
-      })      
-      .addCase(distributeFunds.fulfilled, (state) => {
-        state.status = 'succeeded';
-    });
+  
+        const updatedItems = state.items.map(envelope => {
+          if (envelope.id === fromId || envelope.id === toId) {
+            return updatedEnvelopes.find(updatedEnvelope => updatedEnvelope.id === envelope.id);
+          }
+          return envelope;
+        });
+  
+        state.items = updatedItems;
+      });
   }
 });
 
