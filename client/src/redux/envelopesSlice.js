@@ -94,7 +94,9 @@ const envelopesSlice = createSlice({
   initialState: {
     items: [],
     status: 'idle',
-    error: null
+    error: null,
+    fundDistributionStatus: 'idle',  // Initialize fundDistributionStatus
+    transferStatus: 'idle',  // Initialize transferStatus
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -122,8 +124,11 @@ const envelopesSlice = createSlice({
       .addCase(deleteEnvelope.fulfilled, (state, action) => {
         state.items = state.items.filter(envelope => envelope.id !== action.payload);
       })
+      .addCase(transferFunds.pending, (state) => {
+        state.transferStatus = 'loading';
+      })
       .addCase(transferFunds.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.transferStatus = 'succeeded';
         
         const { fromId, toId, updatedEnvelopes } = action.payload;
     
@@ -138,7 +143,21 @@ const envelopesSlice = createSlice({
     
         state.items = updatedItems;
         console.log('Updated envelopes in state:', state.items);
-    });    
+      })
+      .addCase(transferFunds.rejected, (state, action) => {
+        state.transferStatus = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(distributeFunds.pending, (state) => {
+        state.fundDistributionStatus = 'loading';
+      })
+      .addCase(distributeFunds.fulfilled, (state, action) => {
+        state.fundDistributionStatus = 'succeeded';
+      })
+      .addCase(distributeFunds.rejected, (state, action) => {
+        state.fundDistributionStatus = 'failed';
+        state.error = action.payload;
+      });
   }
 });
 
