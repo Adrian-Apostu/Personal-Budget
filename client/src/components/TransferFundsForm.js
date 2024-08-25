@@ -6,10 +6,12 @@ function TransferFundsForm() {
     const [fromId, setFromId] = useState('');
     const [toId, setToId] = useState('');
     const [amount, setAmount] = useState('');
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setError(null); 
         dispatch(transferFunds({ fromId, toId, amount: parseFloat(amount) }))
             .unwrap()
             .then(() => {
@@ -19,6 +21,7 @@ function TransferFundsForm() {
             })
             .catch((error) => {
                 console.error('Transfer failed:', error);
+                setError(error);
             });
     };
 
@@ -53,10 +56,11 @@ function TransferFundsForm() {
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Amount"
                 required
-                min="0.01" // Minimum amount you can transfer
-                step="0.01" // Step for the numeric input
+                min="0.01"
+                step="0.01"
             />
             <button type="submit">Transfer Funds</button>
+            {error && <p style={{ color: 'red' }}>Transfer failed: {error}</p>}
         </form>
     );
 }
